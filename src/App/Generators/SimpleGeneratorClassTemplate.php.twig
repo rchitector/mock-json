@@ -1,0 +1,46 @@
+<?php declare(strict_types=1);
+
+namespace Rchitector\MockJson\App\Generators\Simple;
+
+use Rchitector\MockJson\App\Generators\BaseSimpleGenerator;
+use Rchitector\MockJson\App\Interfaces\GeneratorInterface;
+
+class {{ className | raw }} extends BaseSimpleGenerator implements GeneratorInterface
+{
+{% if parameters|length > 0 %}
+{% for param in parameters %}
+    private ${{ param['name'] | raw }}{% if param['default_json_value'] %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %};
+{% endfor %}
+{% endif %}
+
+    {{ docComment | raw }}
+    public function {{ classMethodName }}({% if parameters|length > 0 %}{% for param in parameters %}${{ param['name'] | raw }}{% if param['default_json_value'] %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %}, {% endfor %}{% endif %}): mixed
+    {
+        foreach (get_object_vars($this) as $property => $defaultValue) {
+            $this->{$property} = $$property ?? $defaultValue;
+        }
+        return $this->generate();
+    }
+
+    public function generate(): mixed
+    {
+        return $this->faker->{{ classMethodName }}(
+{% if parameters|length > 0 %}
+{% for param in parameters %}
+            $this->{{ param['name'] | raw }},
+{% endfor %}
+{% endif %}
+        );
+    }
+
+{% if parameters|length > 0 %}
+{% for param in parameters %}
+    public function {{ param['name'] }}(${{ param['name'] }}): static
+    {
+        $this->{{ param['name'] }} = ${{ param['name'] }};
+        return $this;
+    }
+
+{% endfor %}
+{% endif %}
+}

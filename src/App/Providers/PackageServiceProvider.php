@@ -4,6 +4,7 @@ namespace Rchitector\MockJson\App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Rchitector\MockJson\App\Console\Commands\GenerateClasses;
 use Rchitector\MockJson\App\Http\Middleware\MockJsonAdminMiddleware;
 use Rchitector\MockJson\App\Http\Middleware\MockJsonMiddleware;
 
@@ -30,8 +31,15 @@ class PackageServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('mock-json', MockJsonMiddleware::class);
         $this->app['router']->aliasMiddleware('mock-json-admin', MockJsonAdminMiddleware::class);
 
-        $this->publishes([
-            $SRC_PATH.'config/mock-json.php' => config_path('mock-json.php'),
-        ], 'laravel-assets');
+//        $this->publishes([
+//            $SRC_PATH.'config/mock-json.php' => config_path('mock-json.php'),
+//        ], 'laravel-assets');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                GenerateClasses::class,
+            ]);
+        }
+
     }
 }

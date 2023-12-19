@@ -1,0 +1,48 @@
+<?php
+
+namespace Rchitector\MockJson\App\Generators;
+
+use Faker\Factory;
+
+{% if generators|length > 0 %}
+/**
+{% for g in generators %}
+ * @method \Rchitector\MockJson\App\Generators\Simple\{{ g.className }} {{ g.functionName }}()
+{% endfor %}
+ */
+{% endif %}
+class Simple
+{
+    public static function one(string $locale = \Faker\Factory::DEFAULT_LOCALE): Simple
+    {
+        return new self(count: -1, locale: $locale);
+    }
+
+    public static function many(int $count, string $locale = \Faker\Factory::DEFAULT_LOCALE): Simple
+    {
+        return new self(count: $count > -1 ? $count : 0, locale: $locale);
+    }
+
+    private function __construct(
+        private readonly int $count = -1,
+        private string $locale = \Faker\Factory::DEFAULT_LOCALE
+    )
+    {
+        if (!in_array($locale, Miscellaneous::locales())) {
+            $this->locale = \Faker\Factory::DEFAULT_LOCALE;
+        }
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        $className = __NAMESPACE__.'\\Simple\\'.ucfirst($name);
+        if ($this->count > -1) {
+            $items = [];
+            for ($i = 0; $i < $this->count; $i++) {
+                $items[] = new $className($this->locale, $arguments);
+            }
+            return $items;
+        }
+        return new $className($this->locale, $arguments);
+    }
+}
