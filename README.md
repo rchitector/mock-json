@@ -1,3 +1,9 @@
+# Routes
+
+> /mock-json/ - package home page
+> /mock-json/admin - package admin page
+> /mock-json/json - all available package methods example
+
 # Examples
 
 ## Simple::one()
