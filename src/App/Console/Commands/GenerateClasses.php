@@ -6,9 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Rchitector\MockJson\App\Generators\Factory;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionMethod;
-use ReflectionParameter;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -52,9 +50,6 @@ class GenerateClasses extends Command
         return array_values($resultMethods);
     }
 
-    /**
-     * @throws ReflectionException
-     */
     private function getFakerProvidersMethods(): array
     {
         $availableMethods = $this->getFakerGeneratorMethods();
@@ -62,12 +57,6 @@ class GenerateClasses extends Command
         $methods = [];
         foreach (Factory::defaultProviders() as $provider) {
             $classMethods = GenerateClasses::classMethodsOnly("Faker\Provider\\$provider");
-//            if ($provider == 'Address') {
-//                dump($classMethods);
-//                dump($availableMethodsKeys);
-//                dd();
-//            }
-
             /** @var ReflectionMethod $classMethod */
             foreach ($classMethods as $classMethod) {
                 if (in_array($classMethod->getName(), $availableMethodsKeys)) {
@@ -84,17 +73,7 @@ class GenerateClasses extends Command
         $fileName = (new ReflectionClass(Faker\Generator::class))->getFileName();
         preg_match_all('/@method\s+[^\r\n]+/', file_get_contents($fileName), $matches);
         foreach ($matches[0] as $line) {
-//            $pattern = '/@method\s+\w+(\[\|\])?\s+([\w\\\[\]]+)\s*(\([^)]*\))/';
             $pattern = '/@method\s+(\S+)\s+([\w\\\[\]]+)\s*\(([^)]*)\)/';
-//            $names = [
-//                '@method float[] localCoordinates()',
-//                '@method float latitude($min = -90, $max = 90)'
-//            ];
-//            if (in_array($line, $names)) {
-//                preg_match($pattern, $line, $m);
-//                dump($line);
-//                dump($m);
-//            }
             if (preg_match($pattern, $line, $matches)) {
                 $method_name = $matches[2];
                 preg_match('/^([a-z]+)([A-Z].*)$/', $method_name, $name_matches);
@@ -109,7 +88,6 @@ class GenerateClasses extends Command
 
     /**
      * @throws SyntaxError
-     * @throws ReflectionException
      * @throws RuntimeError
      * @throws LoaderError
      */
@@ -138,9 +116,7 @@ class GenerateClasses extends Command
             }
 
             $className = ucfirst($classMethod->getName());
-
             $generators[$className] = ['className' => $className, 'functionName' => $classMethod->getName()];
-
             $returnType = $classMethod->getReturnType();
             if (!$returnType) {
                 $pattern = '/@return\s+(\S+)/';
@@ -159,13 +135,9 @@ class GenerateClasses extends Command
                 'docComment' => $classMethod->getDocComment(),
             ]);
             $filePath = $path.DIRECTORY_SEPARATOR.'Simple'.DIRECTORY_SEPARATOR.$className.'.php';
-//                if (!file_exists($filePath)) {
             File::put($filePath, $content);
-//                }
-
 
             ksort($generators);
-
             File::put(
                 $path.DIRECTORY_SEPARATOR.'Simple.php',
                 $twig->load('SimpleClassTemplate.php.twig')->render(['generators' => $generators]),
