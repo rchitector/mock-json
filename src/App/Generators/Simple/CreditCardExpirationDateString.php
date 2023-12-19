@@ -18,12 +18,12 @@ class CreditCardExpirationDateString extends BaseSimpleGenerator implements Gene
      *
      * @example '04/13'
      */
-    public function creditCardExpirationDateString($valid = true, $expirationDateFormat = null, ): mixed
+    public function creditCardExpirationDateString($valid = true, $expirationDateFormat = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

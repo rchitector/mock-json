@@ -23,12 +23,12 @@ class DateTimeAD extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example DateTime('1265-03-22 21:15:52')
      */
-    public function dateTimeAD($max = "now", $timezone = null, ): mixed
+    public function dateTimeAD($max = "now", $timezone = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

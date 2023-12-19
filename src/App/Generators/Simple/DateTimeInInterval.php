@@ -27,12 +27,12 @@ class DateTimeInInterval extends BaseSimpleGenerator implements GeneratorInterfa
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-    public function dateTimeInInterval($date = "-30 years", $interval = "+5 days", $timezone = null, ): mixed
+    public function dateTimeInInterval($date = "-30 years", $interval = "+5 days", $timezone = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

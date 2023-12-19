@@ -20,12 +20,12 @@ class Words extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return array|string
      */
-    public function words($nb = 3, $asText = false, ): mixed
+    public function words($nb = 3, $asText = false, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

@@ -13,12 +13,12 @@ class CreditCardType extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'MasterCard'
      */
-    public function creditCardType(): mixed
+    public function creditCardType(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

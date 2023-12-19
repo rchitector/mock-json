@@ -14,12 +14,12 @@ class Timezone extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'Europe/Paris'
      */
-    public function timezone($countryCode = null, ): mixed
+    public function timezone($countryCode = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

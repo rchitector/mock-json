@@ -25,12 +25,12 @@ class ShuffleArray extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return array The shuffled set
      */
-    public function shuffleArray($array = [], ): mixed
+    public function shuffleArray($array = [], ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

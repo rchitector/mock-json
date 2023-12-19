@@ -13,12 +13,12 @@ class LocalIpv4 extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function localIpv4(): mixed
+    public function localIpv4(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

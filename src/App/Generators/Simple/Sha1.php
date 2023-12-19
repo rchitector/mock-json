@@ -13,12 +13,12 @@ class Sha1 extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function sha1(): mixed
+    public function sha1(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

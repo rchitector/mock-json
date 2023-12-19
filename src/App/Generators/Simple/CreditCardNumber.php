@@ -22,12 +22,12 @@ class CreditCardNumber extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example '4485480221084675'
      */
-    public function creditCardNumber($type = null, $formatted = false, $separator = "-", ): mixed
+    public function creditCardNumber($type = null, $formatted = false, $separator = "-", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

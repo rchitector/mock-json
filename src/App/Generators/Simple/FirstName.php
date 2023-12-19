@@ -16,12 +16,12 @@ class FirstName extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'John'
      */
-    public function firstName($gender = null, ): mixed
+    public function firstName($gender = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

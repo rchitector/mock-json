@@ -15,12 +15,12 @@ class Firefox extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function firefox(): mixed
+    public function firefox(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

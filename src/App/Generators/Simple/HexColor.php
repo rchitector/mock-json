@@ -13,12 +13,12 @@ class HexColor extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function hexColor(): mixed
+    public function hexColor(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

@@ -36,12 +36,12 @@ class Regexify extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function regexify($regex = "", ): mixed
+    public function regexify($regex = "", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

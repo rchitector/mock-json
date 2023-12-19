@@ -13,12 +13,12 @@ class Email extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function email(): mixed
+    public function email(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

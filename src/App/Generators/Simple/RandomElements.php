@@ -25,12 +25,12 @@ class RandomElements extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return array New array with $count elements from $array
      */
-    public function randomElements($array = ["a","b","c"], $count = 1, $allowDuplicates = false, ): mixed
+    public function randomElements($array = ["a","b","c"], $count = 1, $allowDuplicates = false, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

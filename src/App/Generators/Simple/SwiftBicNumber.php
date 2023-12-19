@@ -17,12 +17,12 @@ class SwiftBicNumber extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string Swift/Bic number
      */
-    public function swiftBicNumber(): mixed
+    public function swiftBicNumber(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

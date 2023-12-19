@@ -108,6 +108,10 @@ class GenerateClasses extends Command
                 $parameterData = array(
                     'name' => $parameter->getName()
                 );
+                if ($classMethod->getName() == 'passthrough') { // workaround for empty default value
+                    $parameterData['default_json_value'] = json_encode(null);
+                    $parameterData['default_value'] = null;
+                }
                 if ($parameter->isDefaultValueAvailable()) {
                     $parameterData['default_json_value'] = json_encode($parameter->getDefaultValue());
                     $parameterData['default_value'] = $parameter->getDefaultValue();

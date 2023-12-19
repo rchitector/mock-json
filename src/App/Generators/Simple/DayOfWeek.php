@@ -16,12 +16,12 @@ class DayOfWeek extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'Tuesday'
      */
-    public function dayOfWeek($max = "now", ): mixed
+    public function dayOfWeek($max = "now", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

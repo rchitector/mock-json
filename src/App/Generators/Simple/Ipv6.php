@@ -13,12 +13,12 @@ class Ipv6 extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function ipv6(): mixed
+    public function ipv6(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

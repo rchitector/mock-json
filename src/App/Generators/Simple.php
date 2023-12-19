@@ -149,7 +149,7 @@ class Simple
         return new self(count: -1, locale: $locale);
     }
 
-    public static function many(int $count, string $locale = \Faker\Factory::DEFAULT_LOCALE): Simple
+    public static function many(int $count = 0, string $locale = \Faker\Factory::DEFAULT_LOCALE): Simple
     {
         return new self(count: $count > -1 ? $count : 0, locale: $locale);
     }
@@ -167,13 +167,6 @@ class Simple
     public function __call(string $name, array $arguments)
     {
         $className = __NAMESPACE__.'\\Simple\\'.ucfirst($name);
-        if ($this->count > -1) {
-            $items = [];
-            for ($i = 0; $i < $this->count; $i++) {
-                $items[] = new $className($this->locale, $arguments);
-            }
-            return $items;
-        }
-        return new $className($this->locale, $arguments);
+        return (new $className($this->locale, $this->count))->$name(...$arguments);
     }
 }

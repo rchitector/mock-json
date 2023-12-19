@@ -16,12 +16,12 @@ class RandomHtml extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function randomHtml($maxDepth = 4, $maxWidth = 4, ): mixed
+    public function randomHtml($maxDepth = 4, $maxWidth = 4, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

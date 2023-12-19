@@ -13,12 +13,12 @@ class Century extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'XVII'
      */
-    public function century(): mixed
+    public function century(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

@@ -18,12 +18,12 @@ class Iso8601 extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example '2003-10-21T16:05:52+0000'
      */
-    public function iso8601($max = "now", ): mixed
+    public function iso8601($max = "now", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

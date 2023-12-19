@@ -18,12 +18,12 @@ class Imei extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return int $imei
      */
-    public function imei(): mixed
+    public function imei(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

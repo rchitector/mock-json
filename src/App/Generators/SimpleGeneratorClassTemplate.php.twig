@@ -9,17 +9,17 @@ class {{ className | raw }} extends BaseSimpleGenerator implements GeneratorInte
 {
 {% if parameters|length > 0 %}
 {% for param in parameters %}
-    private ${{ param['name'] | raw }}{% if param['default_json_value'] %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %};
+    private ${{ param['name'] | raw }}{% if param['default_json_value'] is defined %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %};
 {% endfor %}
 {% endif %}
 
     {{ docComment | raw }}
-    public function {{ classMethodName }}({% if parameters|length > 0 %}{% for param in parameters %}${{ param['name'] | raw }}{% if param['default_json_value'] %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %}, {% endfor %}{% endif %}): mixed
+    public function {{ classMethodName }}({% if parameters|length > 0 %}{% for param in parameters %}${{ param['name'] | raw }}{% if param['default_json_value'] is defined %} = {{ param['default_json_value'] | replace({'\\/': '\/'}) | raw }}{% endif %}, {% endfor %}{% endif %}): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

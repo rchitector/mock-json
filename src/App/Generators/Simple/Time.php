@@ -20,12 +20,12 @@ class Time extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example '15:02:34'
      */
-    public function time($format = "H:i:s", $max = "now", ): mixed
+    public function time($format = "H:i:s", $max = "now", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

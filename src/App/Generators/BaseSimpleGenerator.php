@@ -9,23 +9,23 @@ use Rchitector\MockJson\App\Interfaces\GeneratorInterface;
 class BaseSimpleGenerator implements GeneratorInterface, JsonSerializable
 {
     protected Faker\Generator $faker;
-//    private int $count;
+    private int $count;
 
-    public function __construct(string $locale)
+    public function __construct(string $locale, $count)
     {
-//        $this->count = $count;
+        $this->count = $count;
         $this->faker = Faker\Factory::create($locale);
     }
 
     public function jsonSerialize()
     {
-//        if ($this->count > -1) {
-//            $items = [];
-//            for ($i = 0; $i < $this->count; $i++) {
-//                $items[] = $this->generate();
-//            }
-//            return $items;
-//        }
+        if ($this->count > -1) {
+            $items = [];
+            for ($i = 0; $i < $this->count; $i++) {
+                $items[] = $this->generate();
+            }
+            return $items;
+        }
         return $this->generate();
     }
 

@@ -13,12 +13,12 @@ class SafeEmailDomain extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function safeEmailDomain(): mixed
+    public function safeEmailDomain(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

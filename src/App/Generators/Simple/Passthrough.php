@@ -7,17 +7,17 @@ use Rchitector\MockJson\App\Interfaces\GeneratorInterface;
 
 class Passthrough extends BaseSimpleGenerator implements GeneratorInterface
 {
-    private $value;
+    private $value = null;
 
     /**
      * Returns the passed value
      */
-    public function passthrough($value, ): mixed
+    public function passthrough($value = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

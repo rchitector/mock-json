@@ -26,12 +26,12 @@ class DateTimeBetween extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example DateTime('1999-02-02 11:42:52')
      */
-    public function dateTimeBetween($startDate = "-30 years", $endDate = "now", $timezone = null, ): mixed
+    public function dateTimeBetween($startDate = "-30 years", $endDate = "now", $timezone = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

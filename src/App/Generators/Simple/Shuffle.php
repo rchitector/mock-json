@@ -24,12 +24,12 @@ class Shuffle extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return array|string The shuffled set
      */
-    public function shuffle($arg = "", ): mixed
+    public function shuffle($arg = "", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

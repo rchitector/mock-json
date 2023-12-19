@@ -18,12 +18,12 @@ class Boolean extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example true
      */
-    public function boolean($chanceOfGettingTrue = 50, ): mixed
+    public function boolean($chanceOfGettingTrue = 50, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

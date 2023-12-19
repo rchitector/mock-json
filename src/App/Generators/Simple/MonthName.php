@@ -16,12 +16,12 @@ class MonthName extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example 'September'
      */
-    public function monthName($max = "now", ): mixed
+    public function monthName($max = "now", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

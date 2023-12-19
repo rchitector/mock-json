@@ -13,12 +13,12 @@ class HslColorAsArray extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return array
      */
-    public function hslColorAsArray(): mixed
+    public function hslColorAsArray(): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

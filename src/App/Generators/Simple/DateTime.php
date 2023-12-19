@@ -23,12 +23,12 @@ class DateTime extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @example DateTime('2005-08-16 20:39:21')
      */
-    public function dateTime($max = "now", $timezone = null, ): mixed
+    public function dateTime($max = "now", $timezone = null, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

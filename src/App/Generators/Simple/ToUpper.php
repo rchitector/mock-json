@@ -17,12 +17,12 @@ class ToUpper extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function toUpper($string = "", ): mixed
+    public function toUpper($string = "", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

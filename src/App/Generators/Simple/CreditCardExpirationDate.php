@@ -16,12 +16,12 @@ class CreditCardExpirationDate extends BaseSimpleGenerator implements GeneratorI
      *
      * @example 04/13
      */
-    public function creditCardExpirationDate($valid = true, ): mixed
+    public function creditCardExpirationDate($valid = true, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

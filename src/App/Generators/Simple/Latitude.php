@@ -20,12 +20,12 @@ class Latitude extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return float
      */
-    public function latitude($min = -90, $max = 90, ): mixed
+    public function latitude($min = -90, $max = 90, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

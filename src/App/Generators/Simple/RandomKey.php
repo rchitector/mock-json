@@ -16,12 +16,12 @@ class RandomKey extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return int|string|null
      */
-    public function randomKey($array = [], ): mixed
+    public function randomKey($array = [], ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

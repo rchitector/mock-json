@@ -15,12 +15,12 @@ class Slug extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string
      */
-    public function slug($nbWords = 6, $variableNbWords = true, ): mixed
+    public function slug($nbWords = 6, $variableNbWords = true, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

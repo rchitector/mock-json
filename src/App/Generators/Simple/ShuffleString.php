@@ -28,12 +28,12 @@ class ShuffleString extends BaseSimpleGenerator implements GeneratorInterface
      *
      * @return string The shuffled set
      */
-    public function shuffleString($string = "", $encoding = "UTF-8", ): mixed
+    public function shuffleString($string = "", $encoding = "UTF-8", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

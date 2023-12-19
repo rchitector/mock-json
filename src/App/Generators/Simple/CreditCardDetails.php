@@ -14,12 +14,12 @@ class CreditCardDetails extends BaseSimpleGenerator implements GeneratorInterfac
      *
      * @return array
      */
-    public function creditCardDetails($valid = true, ): mixed
+    public function creditCardDetails($valid = true, ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed

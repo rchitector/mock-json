@@ -7,7 +7,7 @@ use Rchitector\MockJson\App\Interfaces\GeneratorInterface;
 
 class BiasedNumberBetween extends BaseSimpleGenerator implements GeneratorInterface
 {
-    private $min;
+    private $min = 0;
     private $max = 100;
     private $function = "sqrt";
 
@@ -27,12 +27,12 @@ class BiasedNumberBetween extends BaseSimpleGenerator implements GeneratorInterf
      *
      * @return int An integer between $min and $max.
      */
-    public function biasedNumberBetween($min, $max = 100, $function = "sqrt", ): mixed
+    public function biasedNumberBetween($min = 0, $max = 100, $function = "sqrt", ): static
     {
         foreach (get_object_vars($this) as $property => $defaultValue) {
             $this->{$property} = $$property ?? $defaultValue;
         }
-        return $this->generate();
+        return $this;
     }
 
     public function generate(): mixed
